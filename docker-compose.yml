@@ -1,0 +1,15 @@
+version: '2.2'
+services:
+  v2a:
+    image: ms:latest
+    build:
+      context: .
+    container_name: ae
+    restart: always
+    privileged: true
+    ports:
+      - "8000:8000"
+    volumes:
+      - /home/huhailang/docker_data/logs:/data/logs
+      - /home/huhailang/docker_data/files:/data/files
+      - /home/huhailang/docker_data/config:/data/config
