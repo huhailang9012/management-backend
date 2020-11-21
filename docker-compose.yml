@@ -10,7 +10,8 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - E:/docker_data/logs:/data/logs
-      - E:/docker_data/files:/data/files
-      - E:/docker_data/config:/data/config
+      - .:/code
+      - /home/snail/Project/docker_data/logs:/data/logs
+      - /home/snail/Project/docker_data/files:/data/files
+      - /home/snail/Project/docker_data/config:/data/config
 
