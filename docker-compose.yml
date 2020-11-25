@@ -1,17 +1,19 @@
 version: '3'
 services:
   ms:
-    image: management-system:latest
+    image: management:latest
     build:
-      context: docker/api
-    container_name: management-system
+      context: .
+    container_name: management
     restart: always
     privileged: true
     ports:
       - "8000:8000"
     volumes:
       - .:/code
-      - /home/snail/Project/docker_data/logs:/data/logs
-      - /home/snail/Project/docker_data/files:/data/files
-      - /home/snail/Project/docker_data/config:/data/config
-
+#      - /home/snail/Project/docker_data/logs:/data/logs
+#      - /home/snail/Project/docker_data/files:/data/files
+#      - /home/snail/Project/docker_data/config:/data/config
+      - E:/docker_data/logs:/data/logs
+      - E:/docker_data/files:/data/files
+      - E:/docker_data/config:/data/config
