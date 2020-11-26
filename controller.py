@@ -97,8 +97,8 @@ def information_index(related_key: str):
             query_time = matched_info['query_time']
             cover_path = cover_dict[audio_id]
             video_path = path_dict[audio_id]
-            cover_path = cover_path.replace("ar.com:9000", "ae.vipgz4.idcfengye.com");
-            video_path = video_path.replace("ar.com:9000", "ae.vipgz4.idcfengye.com");
+            cover_path = cover_path.replace("minio:9000", "ae.vipgz4.idcfengye.com");
+            video_path = video_path.replace("minio:9000", "ae.vipgz4.idcfengye.com");
             related_audios = matched_info['related_audios']
             date_created = matched_info['date_created']
             info = Matched_Information(audio_id, audio_name, video_path, cover_path, total_time, fingerprint_time,
