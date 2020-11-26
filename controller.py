@@ -95,6 +95,8 @@ def information_index(related_key: str):
             fingerprint_time = matched_info['fingerprint_time']
             align_time = matched_info['align_time']
             query_time = matched_info['query_time']
+            most_similar = matched_info['most_similar']
+            confidence = matched_info['confidence']
             cover_path = cover_dict[audio_id]
             video_path = path_dict[audio_id]
             cover_path = cover_path.replace("minio:9000", "ae.vipgz4.idcfengye.com");
@@ -102,7 +104,7 @@ def information_index(related_key: str):
             related_audios = matched_info['related_audios']
             date_created = matched_info['date_created']
             info = Matched_Information(audio_id, audio_name, video_path, cover_path, total_time, fingerprint_time,
-                                       query_time, align_time, related_audios, date_created)
+                                       query_time, align_time, related_audios, date_created, most_similar, confidence)
             infos.append(info)
         result = json.dumps(infos, default=lambda obj: obj.__dict__, sort_keys=False, indent=4)
         return {"success": True, "code": 0, "msg": "ok", "data": result}
