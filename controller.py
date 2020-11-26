@@ -39,7 +39,7 @@ def mainline(video_id: str, local_video_path: str, related_key: str):
     arr = data['data']
     audio_id = arr['audio_id']
     local_audio_path = arr['local_audio_path']
-    url = 'http://ar.com:8000/target/audio/recognize'
+    url = 'http://recognition:8000/target/audio/recognize'
 
     payload = {'audio_id': audio_id, 'local_audio_path': local_audio_path, 'related_key': related_key}
     r = requests.get(url, params=payload)
