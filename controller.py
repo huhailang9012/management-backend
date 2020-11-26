@@ -25,21 +25,21 @@ app.add_middleware(
 
 @app.get("/app/execute")
 def app_execute(related_key: str):
-    url = 'http://spider:8001/app/execute/'+related_key
+    url = 'http://spider:8000/app/execute/'+related_key
     r = requests.post(url)
     return r.text
 
 
 @app.get("/spider/callback")
 def mainline(video_id: str, local_video_path: str, related_key: str):
-    url = 'http://extractor:8002/audio/extract'
+    url = 'http://extractor:8000/audio/extract'
     payload = {'video_id': video_id, 'local_video_path': local_video_path}
     r = requests.get(url, params=payload)
     data = json.loads(r.text)
     arr = data['data']
     audio_id = arr['audio_id']
     local_audio_path = arr['local_audio_path']
-    url = 'http://ar.com:8003/target/audio/recognize'
+    url = 'http://ar.com:8000/target/audio/recognize'
 
     payload = {'audio_id': audio_id, 'local_audio_path': local_audio_path, 'related_key': related_key}
     r = requests.get(url, params=payload)
@@ -48,7 +48,7 @@ def mainline(video_id: str, local_video_path: str, related_key: str):
 
 @app.post("/app/start")
 def app_start(pkg_name: str, activity: str):
-    url = 'http://extractor:8002/audio/extract'
+    url = 'http://extractor:8000/audio/extract'
     payload = {'video_id': 'key','local_video_path': 'local_video_path'}
     r = requests.get(url, params=payload)
     return r.text
@@ -56,7 +56,7 @@ def app_start(pkg_name: str, activity: str):
 
 @app.get("/matched/information/index")
 def information_index(related_key: str):
-    url = 'http://recognition:8003/matched/information/index'
+    url = 'http://recognition:8000/matched/information/index'
     payload = {'related_key': related_key}
     r = requests.get(url, params=payload)
     data = json.loads(r.text)
@@ -69,7 +69,7 @@ def information_index(related_key: str):
             audio_ids.append(audio_id)
         payload = {'audio_ids': audio_ids}
 
-        ret = requests.get('http://extractor:8002/audio/batch/query', params=payload)
+        ret = requests.get('http://extractor:8000/audio/batch/query', params=payload)
         data = json.loads(ret.text)
         audios = json.loads(data['data'])
         video_ids = list()
@@ -79,7 +79,7 @@ def information_index(related_key: str):
             video_ids.append(video_id)
             dict[video_id] = audio['id']
         payload = {'video_ids': video_ids}
-        ret = requests.get("http://spider:8001/video/batch/query", params=payload)
+        ret = requests.get("http://spider:8000/video/batch/query", params=payload)
         data = json.loads(ret.text)
         videos = json.loads(data['data'])
         path_dict = {}
@@ -112,14 +112,14 @@ def information_index(related_key: str):
 
 @app.get("/source/audio/query")
 def app_execute(name: str):
-    url = 'http://recognition:8003/source/audio/query'
+    url = 'http://recognition:8000/source/audio/query'
     payload = {'name': name}
     r = requests.get(url, params=payload)
     return r.text
 
 
 if __name__ == '__main__':
-    url = 'http://extractor:8002/audio/extract'
+    url = 'http://extractor:8000/audio/extract'
     payload = {'video_id': 'video_id', 'local_video_path': 'local_video_path'}
     r = requests.get(url, params=payload)
     print(r.text)
