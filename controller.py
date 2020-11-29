@@ -55,9 +55,9 @@ def app_start(pkg_name: str, activity: str):
 
 
 @app.get("/matched/information/index")
-def information_index(related_key: str, precise: bool):
+def information_index(related_key: str):
     url = 'http://recognition:8000/matched/information/index'
-    payload = {'related_key': related_key, 'precise': precise}
+    payload = {'related_key': related_key}
     r = requests.get(url, params=payload)
     data = json.loads(r.text)
     arr = data['data']
