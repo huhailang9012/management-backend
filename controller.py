@@ -55,9 +55,9 @@ def app_start(pkg_name: str, activity: str):
 
 
 @app.get("/matched/information/index")
-def information_index(related_key: str):
+def information_index(related_key: str, precise: bool):
     url = 'http://recognition:8000/matched/information/index'
-    payload = {'related_key': related_key}
+    payload = {'related_key': related_key, 'precise': precise}
     r = requests.get(url, params=payload)
     data = json.loads(r.text)
     arr = data['data']
@@ -95,7 +95,7 @@ def information_index(related_key: str):
             fingerprint_time = matched_info['fingerprint_time']
             align_time = matched_info['align_time']
             query_time = matched_info['query_time']
-            most_similar = matched_info['most_similar']
+            max_similarity = matched_info['max_similarity']
             confidence = matched_info['confidence']
             cover_path = cover_dict[audio_id]
             video_path = path_dict[audio_id]
@@ -104,12 +104,12 @@ def information_index(related_key: str):
             related_audios = matched_info['related_audios']
             date_created = matched_info['date_created']
             info = Matched_Information(audio_id, audio_name, video_path, cover_path, total_time, fingerprint_time,
-                                       query_time, align_time, related_audios, date_created, most_similar, confidence)
+                                       query_time, align_time, related_audios, date_created, max_similarity, confidence)
             infos.append(info)
         result = json.dumps(infos, default=lambda obj: obj.__dict__, sort_keys=False, indent=4)
         return {"success": True, "code": 0, "msg": "ok", "data": result}
     else:
-        return {"success": True, "code": 0, "msg": "ok"}
+        return {"success": True, "code": 0, "msg": "ok", "data": {}}
 
 
 @app.get("/source/audio/query")
