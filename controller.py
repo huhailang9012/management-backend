@@ -84,9 +84,11 @@ def information_index(related_key: str, precise: bool):
         videos = json.loads(data['data'])
         path_dict = {}
         cover_dict = {}
+        size_dict = {}
         for video in videos:
             path_dict[dict[video['id']]] = video['cloud_video_path']
             cover_dict[dict[video['id']]] = video['cloud_cover_path']
+            size_dict[dict[video['id']]] = video['size']
         infos = list()
         for matched_info in matched_infos:
             audio_id = matched_info['audio_id']
@@ -99,15 +101,15 @@ def information_index(related_key: str, precise: bool):
             confidence = matched_info['confidence']
             cover_path = cover_dict[audio_id]
             video_path = path_dict[audio_id]
+            size = size_dict[audio_id]
             cover_path = cover_path.replace("minio:9000", "ae.vipgz4.idcfengye.com");
             video_path = video_path.replace("minio:9000", "ae.vipgz4.idcfengye.com");
             related_audios = matched_info['related_audios']
             date_created = matched_info['date_created']
-            info = Matched_Information(audio_id, audio_name, video_path, cover_path, total_time, fingerprint_time,
+            info = Matched_Information(audio_id, audio_name, video_path, cover_path, size, total_time, fingerprint_time,
                                        query_time, align_time, related_audios, date_created, max_similarity, confidence)
             infos.append(info)
         result = json.dumps(infos, default=lambda obj: obj.__dict__, sort_keys=False, indent=4)
-        print({"success": True, "code": 0, "msg": "ok"})
         return {"success": True, "code": 0, "msg": "ok", "data": result}
     else:
         return {"success": True, "code": 0, "msg": "ok", "data": {}}
