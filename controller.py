@@ -107,6 +107,7 @@ def information_index(related_key: str, precise: bool):
                                        query_time, align_time, related_audios, date_created, max_similarity, confidence)
             infos.append(info)
         result = json.dumps(infos, default=lambda obj: obj.__dict__, sort_keys=False, indent=4)
+        print({"success": True, "code": 0, "msg": "ok"})
         return {"success": True, "code": 0, "msg": "ok", "data": result}
     else:
         return {"success": True, "code": 0, "msg": "ok", "data": {}}
