@@ -123,6 +123,14 @@ def app_execute(name: str):
     return r.text
 
 
+@app.get("/live/spider/callback")
+def live_video_download(live_id: str, live_source: str):
+    url = 'http://stream:8004/live/video/download'
+    payload = {'live_id': live_id, 'live_source': live_source}
+    requests.get(url, params=payload)
+    return {"success": True, "code": 0, "msg": "ok"}
+
+
 if __name__ == '__main__':
     url = 'http://extractor:8000/audio/extract'
     payload = {'video_id': 'video_id', 'local_video_path': 'local_video_path'}
